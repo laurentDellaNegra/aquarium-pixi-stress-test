@@ -1,5 +1,5 @@
 import { useTick } from '@pixi/react'
-import { Application, Renderer, Sprite, Ticker, UPDATE_PRIORITY } from 'pixi.js'
+import { Application, Renderer, Sprite, UPDATE_PRIORITY } from 'pixi.js'
 import { useCallback, useRef } from 'react'
 
 interface Fish extends Sprite {
@@ -20,7 +20,7 @@ export default function Fish({ fish, app }: Props) {
   const boundWidth = app.screen.width + stagePadding * 2
   const boundHeight = app.screen.height + stagePadding * 2
 
-  const animate = useCallback((delta: Ticker, context: Sprite) => {
+  const animate = useCallback((context: Sprite) => {
     if (!context) return
 
     // Animate fish
@@ -36,10 +36,10 @@ export default function Fish({ fish, app }: Props) {
   }, [])
 
   useTick({
-    callback(delta) {
+    callback() {
       // this === context
       if (!this.current) return
-      animate(delta, this.current)
+      animate(this.current)
     },
     context: fishRef,
     isEnabled: true,

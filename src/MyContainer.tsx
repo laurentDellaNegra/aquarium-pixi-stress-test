@@ -5,7 +5,6 @@ import {
   DisplacementFilter,
   Sprite,
   Texture,
-  Ticker,
   TilingSprite,
   UPDATE_PRIORITY,
 } from 'pixi.js'
@@ -118,7 +117,7 @@ export default function FishPond() {
     setFishes(createFiches(nbFishs, app.screen.width, app.screen.height))
   }, [assetsLoaded, app, nbFishs])
 
-  const animate = useCallback((delta: Ticker, context: TilingSprite) => {
+  const animate = useCallback((context: TilingSprite) => {
     if (!context) return
     context.tilePosition.x -= 1
     context.tilePosition.y -= 1
@@ -126,10 +125,10 @@ export default function FishPond() {
 
   // Animation tick
   useTick({
-    callback(delta) {
+    callback() {
       // this === context
       if (!this.current) return
-      animate(delta, this.current)
+      animate(this.current)
     },
     context: overlayRef,
     isEnabled: true,
