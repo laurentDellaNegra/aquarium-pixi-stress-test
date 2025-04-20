@@ -11,6 +11,7 @@ import {
 } from 'pixi.js'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Fish from './Fish'
+import { useControls } from 'leva'
 
 // Extend PixiJS components for JSX usage
 extend({ Container, Sprite, TilingSprite })
@@ -42,6 +43,19 @@ export default function FishPond() {
   const [assetsLoaded, setAssetsLoaded] = useState(false)
   const [fishes, setFishes] = useState<Fish[]>([])
   const overlayRef = useRef<TilingSprite | null>(null)
+  const [nbFishs, setNbFishs] = useState(5)
+  const {} = useControls({
+    nbFishs: {
+      label: 'Nb of fishs',
+      value: nbFishs,
+      min: 5,
+      max: 50000,
+      step: 1000,
+      onEditEnd(value) {
+        setNbFishs(value)
+      },
+    },
+  })
 
   // Load assets
   useEffect(() => {
@@ -101,8 +115,8 @@ export default function FishPond() {
     app.stage.filters = [filter]
 
     // Load fiches
-    setFishes(createFiches(20000, app.screen.width, app.screen.height))
-  }, [assetsLoaded, app])
+    setFishes(createFiches(nbFishs, app.screen.width, app.screen.height))
+  }, [assetsLoaded, app, nbFishs])
 
   const animate = useCallback((delta: Ticker, context: TilingSprite) => {
     if (!context) return

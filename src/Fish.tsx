@@ -1,4 +1,4 @@
-import { useApplication, useTick } from '@pixi/react'
+import { useTick } from '@pixi/react'
 import { Application, Renderer, Sprite, Ticker, UPDATE_PRIORITY } from 'pixi.js'
 import { useCallback, useRef } from 'react'
 
