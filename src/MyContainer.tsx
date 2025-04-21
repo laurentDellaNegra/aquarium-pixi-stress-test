@@ -45,18 +45,11 @@ export default function FishPond() {
   const [fishesInitialized, setFishesInitialized] = useState(false)
   const [fishes, setFishes] = useState<Fish[]>([])
   const overlayRef = useRef<TilingSprite | null>(null)
-  const [nbFishs, setNbFishs] = useState(5)
 
-  const { withState } = useControls({
+  const { nbFishs, withState } = useControls({
     nbFishs: {
       label: 'Nb of fishs',
-      value: nbFishs,
-      min: 5,
-      max: 50000,
-      step: 1000,
-      onEditEnd(value) {
-        setNbFishs(value)
-      },
+      value: 5,
     },
     withState: {
       label: 'with state',
